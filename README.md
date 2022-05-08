@@ -7,6 +7,6 @@ By the way, this app is already deployed on [Heroku](https://heroku.com/) under 
 
 You may use the link below on the frontend app to use a deployed version of the API, already connected to an MongoDB Atlas instance that you may use for testing.
 
-    https://jespitaleta-cadito-frontend.herokuapp.com/
+    https://jespitaleta-cadito-frontend.herokuapp.com
 
 You may also choose to clone the code and deploy it on your local machine yourself.
