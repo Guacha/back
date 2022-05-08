@@ -7,6 +7,7 @@ const router = express.Router();
 // get specific post
 router.get('/', (req, res) => {
   if (req.query.post_id) {
+    // Get specific post from its id
     Post.findById(req.query.post_id)
       .then((post) => {
         res.status(200).json(post);
@@ -14,10 +15,20 @@ router.get('/', (req, res) => {
       .catch((err) => {
         res.status(400).json(err);
       });
-  } else {
+  } else if (req.query.user_id) {
+    // Get all posts from a specific user
     Post.find({
-      purchased: false,
+      owner_id: req.query.user_id,
     })
+      .then((posts) => {
+        res.status(200).json(posts);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  } else {
+    // Get all posts
+    Post.find()
       .then((posts) => {
         res.status(200).json(posts);
       })

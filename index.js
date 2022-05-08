@@ -10,6 +10,7 @@ const userRoutes = require('./api/users');
 const postRoutes = require('./api/posts');
 const reviewRoutes = require('./api/reviews');
 const cartRoutes = require('./api/cart');
+const historyRoutes = require('./api/history');
 
 // Start mongoose connection
 mongoose.connect(process.env.MONGO_CONNECTION, () =>
@@ -30,6 +31,7 @@ app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
 app.use('/reviews', reviewRoutes);
 app.use('/cart', cartRoutes);
+app.use('/history', historyRoutes);
 
 // start the server
 const PORT = process.env.PORT || 5000;

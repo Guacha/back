@@ -8,6 +8,7 @@ const router = express.Router();
 // get user cart
 router.get('/', (req, res) => {
   if (req.query.user_id) {
+    console.log('Getting cart for user: ', req.query.user_id);
     // Find all cart items that belong to the user
     CartItem.find({ user_id: req.query.user_id })
       .then((cartItems) => {
@@ -52,25 +53,27 @@ router.delete('/', (req, res) => {
     });
 });
 
-router.post('/buy', async (req, res) => {
+router.post('/buy', (req, res) => {
   const { user_id } = req.body;
-
   // Get all CartItems belonging to that user
   CartItem.find({ user_id })
-    .then(async (cartItems) => {
+    .then((cartItems) => {
       // add each cartItem to the user's purchased items
       cartItems.forEach(async (cartItem) => {
-        console.log('Deleting: ', cartItem);
-        await User.findOneAndUpdate(user_id, {
-          $push: {
-            purchases: {
-              product_id: cartItem.product_id,
-              purchase_date: new Date(),
+        await User.findOneAndUpdate(
+          { _id: user_id },
+          {
+            $push: {
+              purchases: {
+                product_id: cartItem.product_id,
+                purchase_date: new Date(),
+              },
             },
           },
-        });
+          { new: true }
+        );
         // Delete cartItem
-        cartItem.remove();
+        await cartItem.remove();
       });
     })
     .then(() => {

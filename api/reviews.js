@@ -29,9 +29,9 @@ router.post('/', (req, res) => {
 
 // get reviews
 router.get('/', (req, res) => {
-  if (req.query.id) {
+  if (req.query.product_id) {
     Review.find({
-      product_id: req.query.id,
+      product_id: req.query.product_id,
     })
       .then((reviews) => {
         res.status(200).json(reviews);
@@ -39,14 +39,17 @@ router.get('/', (req, res) => {
       .catch((err) => {
         res.status(400).json(err);
       });
+  } else if (req.query.user_id) {
+    Review.find({
+      user_id: req.query.user_id,
+    }).then((reviews) => {
+      res.status(200).json(reviews);
+    });
   } else {
-    Review.find()
-      .then((reviews) => {
-        res.status(200).json(reviews);
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
+    // error
+    res.status(400).json({
+      error: 'Please provide a product_id',
+    });
   }
 });
 
