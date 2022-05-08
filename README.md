@@ -10,3 +10,4 @@ You may use the link below on the frontend app to use a deployed version of the 
     https://jespitaleta-cadito-frontend.herokuapp.com
 
 You may also choose to clone the code and deploy it on your local machine yourself.
+If you choose to do so. You'll need to use a local MongoDB instance, as well as prepare an environment variable pointing to the local MongoDB instance as well as the port you want to use.
