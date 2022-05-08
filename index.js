@@ -33,6 +33,10 @@ app.use('/reviews', reviewRoutes);
 app.use('/cart', cartRoutes);
 app.use('/history', historyRoutes);
 
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/src/quetuhaces.html');
+});
+
 // start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
